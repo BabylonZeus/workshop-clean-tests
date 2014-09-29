@@ -199,24 +199,6 @@
                     </packages>
                 </configuration>
             </plugin>
-            <plugin>
-                <artifactId>maven-antrun-plugin</artifactId>
-                <version>1.7</version>
-                <executions>
-                    <execution>
-                        <phase>post-integration-test</phase>
-                        <configuration>
-                            <target>
-                                <delete dir="tomcat.*"/>
-                                <delete file="*.png"/>
-                            </target>
-                        </configuration>
-                        <goals>
-                            <goal>run</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
         </plugins>
     </build>
 </project>
