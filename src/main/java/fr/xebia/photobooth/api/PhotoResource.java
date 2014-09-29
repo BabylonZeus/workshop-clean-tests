@@ -8,14 +8,13 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.*;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.*;
 import java.util.Base64;
 
 
 @Path("/photos")
-@Produces(MediaType.APPLICATION_JSON)
+@Produces(MediaType.TEXT_PLAIN)
 public class PhotoResource {
 
     @GET

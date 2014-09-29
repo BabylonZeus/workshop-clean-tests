@@ -31,36 +31,11 @@ var WebcamHandler = {
 	    console.log(this.webcam.dataToSend);
 
         postData(this.webcam.restUrlForSave, this.webcam.dataToSend)
-        .done(function(response){
-                document.querySelector('#savedPicture').value = response;
-        })
-        .fail(function(error){
-            console.log(error);
-         });
-
-
-/*
-		$.ajax({
-			url: this.webcam.restUrlForSave,
-			type: 'POST',
-			data: this.webcam.dataToSend,
-			complete: function(xhr, textStatus) {
-			},
-			success: function(response, textStatus, xhr) {
-				console.log('Response: ', response);
-
-				if (response.status_code === 200) {
-					console.log(response);
-					document.querySelector('#savedPicture').value = response;
-				}
-			},
-			error: function(xhr, textStatus, errorThrown) {
-				console.log('Error: ', errorThrown);
-			}
-		});
-*/
-
+            .done(function (data) {
+                document.querySelector('#savedLink').setAttribute('href', data);
+            })
+            .fail(function (jqXHR) {
+                console.log("an error has occured", jqXHR);
+            });
     }
-}
-
- 
+};
