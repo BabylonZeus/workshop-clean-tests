@@ -74,7 +74,7 @@ public class US1BuyAPictureStepDefs {
 
     @Then("^the photomaton print the processed picture$")
     public void the_photomaton_print_the_processed_picture() throws Throwable {
-        Thread.sleep(5000);
+        Thread.sleep(6000);
         String href = phantomJsTest.find("#savedLink").getAttribute("href");
         assertThat(href).isNotNull().startsWith(format("http://localhost:%d/image", port()));
     }

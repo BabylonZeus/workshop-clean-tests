@@ -28,7 +28,7 @@ function cancelPicture(){
 }
 function savePicture () {
 	console.log("saving picture");
-	WebcamHandler.savePicture();
+	WebcamHandler.savePicture(command);
 }
 
 function chooseCmd(cmd){
@@ -42,7 +42,7 @@ function postData(url, data){
 			url: url,
 			type: 'POST',
 			contentType: "application/json; charset=utf-8",
-			data: data
+			data: JSON.stringify(data)
 		});
 }
 function getData(url){

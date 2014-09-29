@@ -1,16 +1,19 @@
 package fr.xebia.photobooth.api;
 
-import static org.assertj.core.api.Assertions.fail;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import javax.imageio.ImageIO;
+import fr.xebia.photobooth.domain.Order;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.FileAssert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import static org.assertj.core.api.Assertions.fail;
 
 public class PhotoResourceTest {
     @Rule
@@ -108,7 +111,7 @@ public class PhotoResourceTest {
                 "fqaEr1XYavAMwHMAD1z2/wXgx7qC72+vxP/dKhHH7wEASvaA8SqpSrsAAAAASUVO" +
                 "RK5CYII=";
 
-        String fileName = photoResource.saveToFile(base64String);
+        String fileName = photoResource.saveToFile(new Order("COLOR", "PORTRAIT", "0.0", base64String));
 
         assertThat(fileName).exists().hasHeight(48).hasWidth(48);
     }
@@ -117,7 +120,7 @@ public class PhotoResourceTest {
     public void should_save_to_file_url_string() throws IOException {
         String localFileToDownload = this.getClass().getResource("/image.png").toString();
 
-        String fileName = photoResource.saveToFileWithURL(localFileToDownload);
+        String fileName = (String) photoResource.saveToFileWithURL(new Order("COLOR", "PORTRAIT", "0.0", localFileToDownload));
 
         assertThat(fileName).exists().hasHeight(48).hasWidth(48);
     }

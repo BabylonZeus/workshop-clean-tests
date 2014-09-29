@@ -30,6 +30,7 @@ var WebcamLive = {
 }
 
 var IPWebcamLive = {
+        //restUrlForSave : '/rest/photos/saveWithURL',
         restUrlForSave : '/rest/photos/saveWithURL',
         dataToSend : null,
 

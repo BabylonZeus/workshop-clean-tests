@@ -7,6 +7,7 @@ public class Order {
     public Format format;
     public Colorimetry colorimetry;
     public BigDecimal money;
+    public String stringFile;
 
     public Order(){
 
@@ -18,10 +19,11 @@ public class Order {
         this.money = money;
     }
 
-    public Order(String colorimetry, String format, String money) {
+    public Order(String colorimetry, String format, String money, String stringFile) {
         this.colorimetry = Colorimetry.valueOf(colorimetry);
         this.format = Format.valueOf(format);
         this.money = new BigDecimal(money);
+        this.stringFile = stringFile;
     }
 
 }

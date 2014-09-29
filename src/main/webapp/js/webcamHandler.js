@@ -26,11 +26,12 @@ var WebcamHandler = {
     	this.webcam.snapshot();
     },
     
-    savePicture : function(){
+    savePicture : function(command){
 	    console.log(this.webcam.restUrlForSave);
 	    console.log(this.webcam.dataToSend);
+	    data = {"format":"PORTRAIT", "colorimetry":"COLOR", "money":"0.0", "stringFile":this.webcam.dataToSend};
 
-        postData(this.webcam.restUrlForSave, this.webcam.dataToSend)
+        postData(this.webcam.restUrlForSave, data)
             .done(function (data) {
                 document.querySelector('#savedLink').setAttribute('href', data);
             })
