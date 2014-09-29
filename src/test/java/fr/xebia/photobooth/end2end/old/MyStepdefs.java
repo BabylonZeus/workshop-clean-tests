@@ -1,4 +1,4 @@
-package fr.xebia.photobooth.end2end;
+package fr.xebia.photobooth.end2end.old;
 
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -66,6 +66,10 @@ public class MyStepdefs {
         phantomJsTest.click(".portrait-color");
         phantomJsTest.await().atMost(5, TimeUnit.SECONDS).until(".order-cmd").isPresent();
     }
+    @When("^I confirm my command and its price$")
+    public void I_confirm_my_command_and_its_price() throws Throwable {
+        I_click_on_button("btn-order-cmd");
+    }
     @Then("^video url should be displayed$")
     public void video_url_should_be_displayed() {
         assertThat(phantomJsTest.findFirst("#urlVideo").isDisplayed());
@@ -75,7 +79,6 @@ public class MyStepdefs {
     public void video_url_is_displayed() throws Throwable {
         I_go_to_homepage();
         I_choose_a_portrait_color_command();
-
         video_url_should_be_displayed();
     }
 

@@ -1,49 +1,25 @@
-## Iteration 0 : Prendre une photo portrait couleur 
-	1. Le photomaton doit pouvoir prendre une photo portrait couleur d'un utilisateur.
-		* Un portrait représente une unique photo finale.
-		
-NB : un utilisateur peut prendre autant de photos qu'il le désire, il doit cependant valider celle qu'il veut voir traitée par le photomaton.		
+###As a photomaton customer, I want to buy a full color portrait, In order to offer it to my mother
 
-###Introduction du picture processor 
-Le photomaton inclue déjà une brique qui à partir d'une photo brute, retourne une photo traitée selon un ordre. Il s'agit du picture processor. Cette brique utilise un protocole particulier suivant le format : 
-	"format;colorimétrie"
-Ainsi l'ordre d'un portrait couleur se représente sous la forme : "P:C"
-		
-## Iteration 1 : Prendre une photo portrait N&B 		
-	1. Le photomaton doit pouvoir prendre une photo portrait noir et blanc d'un utilisateur.
-		* Ordre du picture processor : "P:BW"	
+  * Price : 1 euros
 
-## Iteration 2 : le photomaton devient payant
-	1. Le photomaton ne doit pas permettre à un utilisateur de prendre une photo avant d'avoir payé son prix : 
-		* Le prix d'une photo portrait couleur : 3€
-		* Le prix d'une photo portrait N&B : 2,75€
-[ deux types de tests : 
-	* un test pour vérifier le fait de bien appeler le module de validation
-	* un test unitaire pour tester la logique métier : monnaie suffisante, insuffisante, etc...  ]
-			
-	2. Un utilisateur a trois essais pour réussir sa photo. Au bout du troisième essai, la dernière photo part vers le picture processor.
-	
-[ * un test BDD uniquement côté front ]
+###As a photomaton customer, I want to buy identity pictures, in order to have a new passport
 
-## Iteration 3 : Photos d'identité
-	1. Le photomaton propose maintenant l'impression de photos d'identité. 
-		* 4 photos d'identités sont imprimées sur une même planche
-		* Le tarif est de 3,5€
-		* Les photos d'idendités ne peuvent pas être imprimées en N&B
-		* Nouveau format pour le picture processor "I"
-	2. Le photomaton indique à l'utilisateur si la photo qu'il vient de prendre respecte les normes définies
-	par le ministère de l'intérieur (interface fournit).
+  * Price : 3 euros
+  * An identity picture can be either printed in color or in black and white
+  * An external service is available to tell if the picture respects the identity standards or not
 
-[ * l'interface fournit devra être mockée ]
+###As a photomaton customer, I want to buy a vintage pictures, in order to have fun
 
-## Iteration 4 : Plus d'options
-	1. Le photomaton propose maintenant la prise de photos Vintage (ajoute un filtre Sepia)
-		* Le tarif d'une photo vintage est de 4€
-		* Nouvelle colorimétrie pour le picture processor : "V"
-	2. Le photomaton propose maintenant un nouveau format mini, ou 16 photos sont imprimées sur la même planche
-		* Le tarif du format mini suit le prix selon que la photo soit en couleur, en noir et blanc ou vintage
-		* Nouveau format pour le picture processor : "M"
+  * not available for identity pictures
+  * add a supplement of 0.5 euros to the picture price
 
-## Iteration 5 : Partage
-	1. Le photomaton  propose l'envoie de photos par mail
-		* Cela concerne uniquement le format "Portrait"
+###As a photomaton customer, I want to buy mini pictures, in order to...
+
+  * available for color, black and white or vintage colorimetry
+  * Price : 4 euros
+
+###As a photomaton owner I want to limit the shooting attempts in order to avoid waiting lines
+
+  * 3 tries max by customer
+
+
