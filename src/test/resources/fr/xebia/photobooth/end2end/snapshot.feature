@@ -2,8 +2,7 @@ Feature: snapshot
 
   Scenario: should offer a choice of command
     Given I go to homepage
-    Given I choose a portrait color command
-    When I confirm my command and its price
+    When I choose a portrait color command
     Then video url should be displayed
 
   Scenario: should takes a snapshot
