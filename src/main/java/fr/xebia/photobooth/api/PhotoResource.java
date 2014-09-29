@@ -4,11 +4,13 @@ import fr.xebia.photobooth.domain.Order;
 import fr.xebia.photobooth.domain.Validation;
 
 import javax.ws.rs.*;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.*;
+import java.net.URISyntaxException;
 import java.net.URL;
-import java.nio.file.Files;
+import java.nio.file.*;
 import java.util.Base64;
 
 
@@ -36,18 +38,19 @@ public class PhotoResource {
         return Response.ok().entity(Validation.INSTANCE.isValid(order)).build();
     }
 
-
-
     @POST
     @Path("/save")
     @Consumes(MediaType.APPLICATION_JSON)
     public String saveToFile(String base64Picture) throws IOException {
-        byte[] data = Base64.getDecoder().decode(base64Picture);
         File urlFile = File.createTempFile("image", ".png");
+        byte[] data = Base64.getDecoder().decode(base64Picture);
 
         try (OutputStream stream = new FileOutputStream(urlFile);) {
             stream.write(data);
         }
+
+        java.nio.file.Path source = urlFile.toPath();
+        Files.move(source, Paths.get("src/main/webapp").resolve(source.getFileName()));
 
         return urlFile.getName();
     }
@@ -56,14 +59,17 @@ public class PhotoResource {
     @Path("/saveWithURL")
     @Consumes(MediaType.APPLICATION_JSON)
     public String saveToFileWithURL(String pictureUrl) throws IOException {
-        File targetFile = File.createTempFile("image", ".png");
-        targetFile.delete();
+        File urlFile = File.createTempFile("image", ".png");
+        urlFile.delete();
 
         try (InputStream in = new URL(pictureUrl).openStream()) {
-            Files.copy(in, targetFile.toPath());
+            Files.copy(in, urlFile.toPath());
         }
 
-        return targetFile.getName();
+        java.nio.file.Path source = urlFile.toPath();
+        Files.move(source, Paths.get("src/main/webapp").resolve(source.getFileName()));
+
+        return urlFile.getName();
     }
 
 	
