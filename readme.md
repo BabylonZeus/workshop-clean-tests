@@ -30,10 +30,10 @@ Un découpage est proposé dans *US1-buy-a-picture.feature*. Le premier scénari
 ###2ème étape : Ajouter de nouvelles fonctionnalités au photomaton 
 
 Les user stories a développer sont disponibles dans les fichiers suivants:
-	* US2-identity-pictures.feature	
-	* US3-vintage-picture.feature
-	* US4-mini-picture.feature
-	* US5-limited-shooting-attempts.feature
+  * US2-identity-pictures.feature	
+  * US3-vintage-picture.feature
+  * US4-mini-picture.feature
+  * US5-limited-shooting-attempts.feature
 
 **A faire:** A vous de faire le travail de rédaction des scénarios. Ils doivent définir les étapes que vous souhaitez représenter dans votre découpage. 
 
