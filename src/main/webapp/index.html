@@ -26,13 +26,13 @@
 
     </div>
 </header>
-<aside><h3>Choose a command</h3>
+<aside><h3>Commands</h3>
     <div class="btn-group">
-        <button type="button" class="btn btn-command portrait-color activ">Portrait couleur</button>
-        <button type="button" class="btn btn-command portrait-bw">Portrait N&B</button>
-        <button type="button" class="btn btn-command portrait-old">Portrait Ancien</button>
-        <button type="button" class="btn btn-command identity-color">Identité Couleur</button>
-        <button type="button" class="btn btn-command identity-bw">Identité N&B</button>
+        <button type="button" class="btn btn-command PORTRAIT-COLOR activ">Portrait couleur</button>
+        <button type="button" class="btn btn-command PORTRAIT-BW">Portrait N&B</button>
+        <button type="button" class="btn btn-command PORTRAIT-VINTAGE">Portrait VINTAGE</button>
+        <button type="button" class="btn btn-command IDENTITY-COLOR">Identité Couleur</button>
+        <button type="button" class="btn btn-command IDENTITY-BW">Identité N&B</button>
 
     </div>
     <!--<ul>-->
@@ -41,7 +41,17 @@
 </aside>
 <section class="content">
     <div class="order-cmd hidden">
-        <label>Prix : </label><span>0 €</span>
+        <span id="cmdTitle"></span>
+        <label>Prix : </label>
+        <span>0 €</span>
+        <div id="action">
+            <button type="button" class="btn btn-confirm ok">Print</button>
+            <button type="button" class="btn btn-cancel">Cancel</button>
+            <ul class="photos">
+                <li><a id="savedLink" href="" class="hidden">your picture</a></li>
+            </ul>
+
+        </div>
     </div>
 
 
@@ -55,12 +65,7 @@
 		<div id="photo">
 		    <button class="btn snapshot">TAKE A PICTURE</button>
 		    <img class="snapshotResult" src="">
-		    <a id="savedLink" href="">your picture</a>
-		    <canvas class="hidden"></canvas>
-		</div>
-		<div id="action">
-		  <button type="button" class="btn btn-confirm ok">Ok</button>
-		  <button type="button" class="btn btn-cancel">Cancel</button>
+		    <canvas></canvas>
 		</div>
 	</div>
 </section>

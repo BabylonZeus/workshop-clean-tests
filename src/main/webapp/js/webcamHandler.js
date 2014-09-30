@@ -23,15 +23,21 @@ var WebcamHandler = {
     snapshot: function () {
         this.webcam.snapshot();
     },
-
-    savePicture: function () {
-        console.log(this.webcam.restUrlForSave);
-        console.log(this.webcam.dataToSend);
-        var data = {"format": "PORTRAIT", "colorimetry": "COLOR", "money": "0.0", "stringFile": this.webcam.dataToSend};
+    
+    savePicture : function(command){
+	    console.log(this.webcam.restUrlForSave);
+	    console.log(this.webcam.dataToSend);
+	    command["money"] = "0.0";
+	    command["stringFile"] = this.webcam.dataToSend ;
+	    //data = {"format":"PORTRAIT", "colorimetry":"COLOR", "money":"0.0", "stringFile":this.webcam.dataToSend};
+	    var data = command;
+	    console.log(command);
 
         postData(this.webcam.restUrlForSave, data)
             .done(function (data) {
-                document.querySelector('#savedLink').setAttribute('href', data);
+                var savedLink = document.querySelector('#savedLink');
+                savedLink.classList.remove("hidden");
+                savedLink.setAttribute('href', data);
             })
             .fail(function (jqXHR) {
                 console.log("an error has occured", jqXHR);

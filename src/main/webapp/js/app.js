@@ -1,5 +1,5 @@
 var videoMode = "webcam";
-var command = null;
+var command = {};
 
 var snapshotBtn = document.querySelector(".snapshot");
 snapshotBtn.addEventListener('click', takeAPicture, false);
@@ -32,9 +32,14 @@ function savePicture () {
 }
 
 function chooseCmd(cmd){
-    command = cmd;
+    var typeCmd = cmd.split("-");
+    command["format"] = typeCmd[0];
+    command["colorimetry"] = typeCmd[1];
+
+
     document.querySelector(".order-cmd").classList.remove("hidden");
     document.querySelector(".photobooth").classList.remove("hidden");
+    document.getElementById("cmdTitle").innerHTML = typeCmd[0] + " " + typeCmd[1] + " - ";
 }
 
 function postData(url, data){

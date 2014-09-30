@@ -119,13 +119,14 @@ section.content{
 }
 
 .order-cmd{
-margin-left: 70px;
-margin-top: 50px;
+margin-left: 650px;
+margin-top: 20px;
 }
 .order-cmd>button{
     margin-left : 10px;
 }
 .photobooth{
+    margin-top: 40px;
 	//display:inline-block;
 }
 #camera{
