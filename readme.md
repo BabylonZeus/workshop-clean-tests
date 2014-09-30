@@ -7,7 +7,6 @@
 
 ##Lancer le photomaton
 1. Lancer l'application :
-` mvn package Deploy locally`
 ` mvn tomcat7:run`
 
 2. se rendre à l'url : [http://localhost:8080](http://localhost:8080)
