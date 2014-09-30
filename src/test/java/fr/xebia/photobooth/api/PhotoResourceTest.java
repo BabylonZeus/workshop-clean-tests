@@ -1,13 +1,22 @@
 package fr.xebia.photobooth.api;
 
+import fr.xebia.photobooth.domain.Command;
 import fr.xebia.photobooth.domain.MachineException;
 import fr.xebia.photobooth.domain.Order;
+import fr.xebia.photobooth.domain.PhotoMaker;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.FileAssert;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.junit.rules.TemporaryFolder;
+import org.junit.runner.RunWith;
+import org.mockito.ArgumentCaptor;
+import org.mockito.Captor;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -15,16 +24,31 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.assertj.core.api.Assertions.fail;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+@RunWith(MockitoJUnitRunner.class)
 public class PhotoResourceTest {
     @Rule
     public ExpectedException thrown = ExpectedException.none();
-
+    @Rule
+    public TemporaryFolder temporaryFolder = new TemporaryFolder();
+    @Mock
+    public PhotoMaker photoMaker;
+    @Captor
+    ArgumentCaptor<Command> pictureToProcessCommandCaptor;
     private PhotoResource photoResource;
 
+    private static ImageAssert assertThat(String actualFileName) {
+        return new ImageAssert(actualFileName);
+    }
+
     @Before
-    public void init() {
+    public void init() throws MachineException, IOException {
+        MockitoAnnotations.initMocks(this);
         photoResource = new PhotoResource();
+        photoResource.setPhotoMaker(photoMaker);
+        when(photoMaker.make(pictureToProcessCommandCaptor.capture())).thenReturn(temporaryFolder.newFile());
     }
 
     @Test
@@ -112,22 +136,20 @@ public class PhotoResourceTest {
                 "fqaEr1XYavAMwHMAD1z2/wXgx7qC72+vxP/dKhHH7wEASvaA8SqpSrsAAAAASUVO" +
                 "RK5CYII=";
 
-        String fileName = photoResource.saveToFile(new Order("COLOR", "PORTRAIT", "0.0", base64String));
+        photoResource.saveToFile(new Order("COLOR", "PORTRAIT", "0.0", base64String));
 
-        assertThat(fileName).exists().hasHeight(48).hasWidth(48);
+        verify(photoMaker).make(pictureToProcessCommandCaptor.capture());
+        assertThat(pictureToProcessCommandCaptor.getValue().picture.getName()).exists().hasHeight(48).hasWidth(48);
     }
 
     @Test
     public void should_save_to_file_url_string() throws IOException, MachineException {
         String localFileToDownload = this.getClass().getResource("/image.png").toString();
 
-        String fileName = (String) photoResource.saveToFileWithURL(new Order("COLOR", "PORTRAIT", "0.0", localFileToDownload));
+        photoResource.saveToFileWithURL(new Order("COLOR", "PORTRAIT", "0.0", localFileToDownload));
 
-        assertThat(fileName).exists().hasHeight(48).hasWidth(48);
-    }
-
-    private static ImageAssert assertThat(String actualFileName) {
-        return new ImageAssert(actualFileName);
+        verify(photoMaker).make(pictureToProcessCommandCaptor.capture());
+        assertThat(pictureToProcessCommandCaptor.getValue().picture.getName()).exists().hasHeight(48).hasWidth(48);
     }
 
     private static final class ImageAssert extends FileAssert {

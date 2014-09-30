@@ -1,5 +1,6 @@
 package fr.xebia.photobooth.api;
 
+import com.google.common.annotations.VisibleForTesting;
 import fr.xebia.photobooth.domain.*;
 import fr.xebia.photobooth.external.pictureprocessor.PictureProcessor;
 
@@ -49,7 +50,7 @@ public class PhotoResource {
                     .build());
         }
 
-        File urlFile = File.createTempFile("image", ".png");
+        File urlFile = File.createTempFile("image", ".jpg");
         byte[] data = Base64.getDecoder().decode(order.stringFile);
 
         try (OutputStream stream = new FileOutputStream(urlFile);) {
@@ -88,5 +89,11 @@ public class PhotoResource {
     private String processPicture(Order order, File picture) throws MachineException {
         Command command = new Command(order, picture);
         return photoMaker.make(command).getName();
+    }
+
+
+    @VisibleForTesting
+    public void setPhotoMaker(PhotoMaker photoMaker){
+        this.photoMaker = photoMaker;
     }
 }

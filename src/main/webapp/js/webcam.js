@@ -23,8 +23,8 @@ var WebcamLive = {
 		        ctx.drawImage(this.video, 0, 0, 640, 480, 0, 0, 300, 150);
 		        // "image/webp" works in Chrome.
 		        // Other browsers will fall back to image/png.
-		        snapshotResult.src = this.canvas.toDataURL('image/webp');
-                var lengthToExclude = 'data:image/webp;base64,'.length;
+		        snapshotResult.src = this.canvas.toDataURL('image/jpeg');
+                var lengthToExclude = 'data:image/jpeg;base64,'.length;
                 this.dataToSend = snapshotResult.src.substr(lengthToExclude, snapshotResult.src.length - lengthToExclude);
 		    }
 		}
