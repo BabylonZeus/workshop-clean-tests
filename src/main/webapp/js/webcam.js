@@ -39,8 +39,10 @@ var IPWebcamLive = {
 		    this.urlVideo = document.querySelector("#urlVideo");
 		    this.urlPhoto = document.querySelector("#urlPhoto");
 
-		    document.querySelector("#url").classList.remove("hidden");
-		    document.querySelector("#url").display = "inline-block;";
+		    document.querySelector(".ipWebcamResult").src = "http://camera1.mairie-brest.fr/axis-cgi/mjpg/video.cgi";//brest
+
+		    document.querySelector("#urls").classList.remove("hidden");
+		    document.querySelector("#urls").display = "inline-block;";
 
 		    document.querySelector(".startIPWebcam").addEventListener('click', function () {
 		        //snapshotBtn.classList.remove("hidden");
