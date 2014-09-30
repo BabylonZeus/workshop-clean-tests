@@ -12,19 +12,7 @@
 <header class="navbar">
 	<div class="banner">
 	    <span>XebiaMaton</span>
-        <div id="urls" class="hidden">
-            <input type="text" id="urlVideo" placeholder="url video webcam"/>
-            <input type="text" id="urlPhoto" placeholder="url photo webcam"/>
-            <button class="btn startIPWebcam">video</button>
-<!--
-            <p>Example :
-                <span>Ip Webcam on Android : video : http://192.168.0.13:8080/video  ---- photo : http://192.168.0.13:8080/photo.jpg</span>
-                <span>Brest : http://camera1.mairie-brest.fr/axis-cgi/mjpg/video.cgi</span>
-            </p>
--->
-        </div>
-
-    </div>
+	</div>
 </header>
 <aside><h3>Commands</h3>
     <div class="btn-group">
@@ -59,7 +47,16 @@
 	<div class="photobooth hidden">
 		<div id="camera">
 		    <video id="live" autoplay class="hidden" style="width: 320px; height: 240px"></video>
-            <img class="ipWebcamResult"/>
+		    <div id="url" class="hidden">
+		        <input type="text" id="urlVideo" placeholder="url video webcam"/>
+		        <input type="text" id="urlPhoto" placeholder="url photo webcam"/>
+		        <button class="btn startIPWebcam">Start Stream</button>
+	  	        <p>Example :
+		            <span>Ip Webcam on Android : video : http://192.168.0.13:8080/video  ---- photo : http://192.168.0.13:8080/photo.jpg</span>
+                    <span>Brest : http://camera1.mairie-brest.fr/axis-cgi/mjpg/video.cgi</span>
+		        </p>
+		    </div>	
+            <img class="ipWebcamResult"/>		    
 		</div>
 		
 		<div id="photo">
