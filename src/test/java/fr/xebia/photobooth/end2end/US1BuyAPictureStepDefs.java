@@ -85,7 +85,7 @@ public class US1BuyAPictureStepDefs {
     }
 
     public void I_choose_a_portrait_color_command() {
-        phantomJsTest.click(".portrait-color");
+        phantomJsTest.click(".PORTRAIT-COLOR");
         phantomJsTest.await().atMost(5, TimeUnit.SECONDS).until(".order-cmd").isPresent();
     }
 
