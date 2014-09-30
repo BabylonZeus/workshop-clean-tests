@@ -2,7 +2,7 @@ navigator.getUserMedia = navigator.getUserMedia || navigator.webkitGetUserMedia 
 
 var WebcamLive = {
 
-		video : document.querySelector("video"),
+		video : document.querySelector("#live"),
 		canvas : document.querySelector("canvas"),
 		restUrlForSave : '/rest/photos/save',
 		dataToSend : null,
@@ -20,14 +20,14 @@ var WebcamLive = {
 		snapshot : function () {
 			var ctx = this.canvas.getContext("2d");
 		    if (this.stream) {
-		        ctx.drawImage(video, 0, 0, 640, 480, 0, 0, 300, 150);
+		        ctx.drawImage(this.video, 0, 0, 640, 480, 0, 0, 300, 150);
 		        // "image/webp" works in Chrome.
 		        // Other browsers will fall back to image/png.
-		        snapshotResult.src = canvas.toDataURL('image/webp');
+		        snapshotResult.src = this.canvas.toDataURL('image/webp');
 		        this.dataToSend = snapshotResult.src;
 		    }
 		}
-}
+};
 
 var IPWebcamLive = {
         //restUrlForSave : '/rest/photos/saveWithURL',
@@ -39,7 +39,7 @@ var IPWebcamLive = {
 		    this.urlPhoto = document.querySelector("#urlPhoto");
 
 		    document.querySelector("#url").classList.remove("hidden");
-		    document.querySelector("#url").display = "inline-block;"
+		    document.querySelector("#url").display = "inline-block;";
 
 		    document.querySelector(".startIPWebcam").addEventListener('click', function () {
 		        //snapshotBtn.classList.remove("hidden");
@@ -59,4 +59,4 @@ var IPWebcamLive = {
 			this.dataToSend = this.getUrlPhoto();
 			console.log(this.dataToSend);
 		}
-}
+};
