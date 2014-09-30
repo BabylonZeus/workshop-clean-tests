@@ -24,7 +24,8 @@ var WebcamLive = {
 		        // "image/webp" works in Chrome.
 		        // Other browsers will fall back to image/png.
 		        snapshotResult.src = this.canvas.toDataURL('image/webp');
-		        this.dataToSend = snapshotResult.src;
+                var lengthToExclude = 'data:image/webp;base64,'.length;
+                this.dataToSend = snapshotResult.src.substr(lengthToExclude, snapshotResult.src.length - lengthToExclude);
 		    }
 		}
 };
