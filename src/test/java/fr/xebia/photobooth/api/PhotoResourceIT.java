@@ -20,7 +20,7 @@ public class PhotoResourceIT {
 
     @Test
     public void should_validate_cmd_then_download_picture_and_create_file() {
-        Order order = new Order("COLOR", "PORTRAIT", "0.0", "http://camera1.mairie-brest.fr/axis-cgi/jpg/image.cgi");
+        Order order = new Order("COLOR", "PORTRAIT", "0.0", "/img/dog.jpeg");
 
         String body = "{\"colorimetry\":'COLOR',\"format\":'PORTRAIT', \"money\":'0.0'}";
         //,{"url":http://camera1.mairie-brest.fr/axis-cgi/jpg/image.cgi"}

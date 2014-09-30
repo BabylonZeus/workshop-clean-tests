@@ -9,6 +9,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.*;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.nio.file.*;
 import java.util.Base64;
@@ -76,7 +77,9 @@ public class PhotoResource {
         File urlFile = File.createTempFile("image", ".png");
         urlFile.delete();
 
-        try (InputStream in = new URL(order.getStringFile()).openStream()) {
+
+        URL url = createUrlFromOrder(order);
+        try (InputStream in = url.openStream()) {
             Files.copy(in, urlFile.toPath());
         }
         java.nio.file.Path source = urlFile.toPath();
@@ -84,6 +87,16 @@ public class PhotoResource {
 
         //return Response.ok().entity(urlFile.getName()).build();
         return processPicture(order, pictureToProcess.toFile());
+    }
+
+    private URL createUrlFromOrder(Order order) throws MalformedURLException {
+        URL url = null;
+        try {
+            url = new URL(order.getStringFile());
+        } catch (MalformedURLException e) {
+            url = new File("src/main/webapp/" +order.getStringFile()).toURI().toURL();
+        }
+        return url;
     }
 
     private String processPicture(Order order, File picture) throws MachineException {
