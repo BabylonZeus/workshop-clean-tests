@@ -1,5 +1,6 @@
 package fr.xebia.photobooth.api;
 
+import fr.xebia.photobooth.domain.MachineException;
 import fr.xebia.photobooth.domain.Order;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.api.FileAssert;
@@ -34,7 +35,7 @@ public class PhotoResourceTest {
     }
 
     @Test
-    public void should_save_to_file_base_64_string() throws IOException {
+    public void should_save_to_file_base_64_string() throws IOException, MachineException {
         String base64String = "" +
                 "iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAAL" +
                 "EwEAmpwYAAAKwWlDQ1BQaG90b3Nob3AgSUNDIHByb2ZpbGUAAHjarZZ3UJPZGsbf" +
@@ -117,7 +118,7 @@ public class PhotoResourceTest {
     }
 
     @Test
-    public void should_save_to_file_url_string() throws IOException {
+    public void should_save_to_file_url_string() throws IOException, MachineException {
         String localFileToDownload = this.getClass().getResource("/image.png").toString();
 
         String fileName = (String) photoResource.saveToFileWithURL(new Order("COLOR", "PORTRAIT", "0.0", localFileToDownload));

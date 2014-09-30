@@ -1,21 +1,23 @@
 package fr.xebia.photobooth.api;
 
-import fr.xebia.photobooth.domain.Order;
-import fr.xebia.photobooth.domain.Validation;
+import fr.xebia.photobooth.domain.*;
+import fr.xebia.photobooth.external.pictureprocessor.PictureProcessor;
 
 import javax.ws.rs.*;
+import javax.ws.rs.Path;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.io.*;
 import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.nio.file.*;
 import java.util.Base64;
 
 
 @Path("/photos")
 @Produces(MediaType.TEXT_PLAIN)
 public class PhotoResource {
+
+    PhotoMaker photoMaker = new PhotoMaker(new PictureProcessor());
 
     @GET
     @Path("/hello")
@@ -40,7 +42,7 @@ public class PhotoResource {
     @POST
     @Path("/save")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String saveToFile(Order order) throws IOException {
+    public String saveToFile(Order order) throws IOException, MachineException {
         if(!Validation.INSTANCE.isValid(order)){
             throw new WebApplicationException(Response.status(Response.Status.FORBIDDEN)
                     .entity("Not a valid order")
@@ -55,15 +57,15 @@ public class PhotoResource {
         }
 
         java.nio.file.Path source = urlFile.toPath();
-        Files.move(source, Paths.get("src/main/webapp").resolve(source.getFileName()));
+        java.nio.file.Path pictureToProcess = Files.move(source, Paths.get("src/main/webapp").resolve(source.getFileName()));
 
-        return urlFile.getName();
+        return processPicture(order, pictureToProcess.toFile());
     }
 
     @POST
     @Path("/saveWithURL")
     @Consumes(MediaType.APPLICATION_JSON)
-    public String saveToFileWithURL(Order order) throws IOException {
+    public String saveToFileWithURL(Order order) throws IOException, MachineException {
         if(!Validation.INSTANCE.isValid(order)){
             throw new WebApplicationException(Response.status(Response.Status.FORBIDDEN)
                     .entity("Not a valid order")
@@ -77,9 +79,14 @@ public class PhotoResource {
             Files.copy(in, urlFile.toPath());
         }
         java.nio.file.Path source = urlFile.toPath();
-        Files.move(source, Paths.get("src/main/webapp").resolve(source.getFileName()));
+        java.nio.file.Path pictureToProcess = Files.move(source, Paths.get("src/main/webapp").resolve(source.getFileName()));
 
         //return Response.ok().entity(urlFile.getName()).build();
-        return urlFile.getName();
+        return processPicture(order, pictureToProcess.toFile());
+    }
+
+    private String processPicture(Order order, File picture) throws MachineException {
+        Command command = new Command(order, picture);
+        return photoMaker.make(command).getName();
     }
 }
