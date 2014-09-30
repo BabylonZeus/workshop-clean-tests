@@ -44,12 +44,10 @@ public class US1BuyAPictureStepDefs {
         tomcatRule.ifPresent(rule -> {
             rule.after();
             try {
-                Thread.sleep(100);
-                while (!portIsNotBind(8080)) {
-                    System.out.println("tomcat arrive pas à s'éteindre");
-                    Thread.sleep(100);
+                if (!portIsNotBind(port())) {
+                    System.err.println("tomcat arrive pas à s'éteindre");
                 }
-            } catch (IOException | InterruptedException e) {
+            } catch (IOException e) {
                 e.printStackTrace();
             }
         });
