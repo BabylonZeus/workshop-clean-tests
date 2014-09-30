@@ -4,10 +4,11 @@ import java.math.BigDecimal;
 
 
 public class Order {
-    public Format format;
-    public Colorimetry colorimetry;
-    public BigDecimal money;
-    public String stringFile;
+    private Format format;
+    private Colorimetry colorimetry;
+
+    private BigDecimal money;
+    private String stringFile;
 
     public Order(){
 
@@ -24,6 +25,22 @@ public class Order {
         this.format = Format.valueOf(format);
         this.money = new BigDecimal(money);
         this.stringFile = stringFile;
+    }
+
+    public Format getFormat() {
+        return format;
+    }
+
+    public Colorimetry getColorimetry() {
+        return colorimetry;
+    }
+
+    public BigDecimal getMoney() {
+        return money;
+    }
+
+    public String getStringFile() {
+        return stringFile;
     }
 
 }

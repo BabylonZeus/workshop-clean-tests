@@ -6,6 +6,6 @@ public class OrderToPictureProcessorProtocol {
     private final PictureProcessorFormat pictureProcessorFormat = new PictureProcessorFormat();
 
     public String convert(Order order){
-        return order.colorimetry.accept(pictureProcessorColorimetry) + ";" + order.format.accept(pictureProcessorFormat);
+        return order.getColorimetry().accept(pictureProcessorColorimetry) + ";" + order.getFormat().accept(pictureProcessorFormat);
     }
 }

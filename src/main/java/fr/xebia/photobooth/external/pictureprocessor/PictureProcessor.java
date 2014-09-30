@@ -13,14 +13,18 @@ import java.nio.file.Paths;
 
 public class PictureProcessor {
 
-    public File process(String order, File takenPicture) throws Exception {
-        BufferedImage image = ImageIO.read(takenPicture);
+    public File process(String order, File takenPicture) throws PictureProcessorException {
         File processedPicture = new File(takenPicture.toPath().getParent().toString() + "/" + constructProcessedPictureFilename(takenPicture));
-        ImageIO.write((RenderedImage)applyOrder(order, image),
-                Files.getFileExtension(takenPicture.getName()),
-                processedPicture);
+        try {
+            BufferedImage image = ImageIO.read(takenPicture);
+            ImageIO.write((RenderedImage) applyOrder(order, image),
+                    Files.getFileExtension(takenPicture.getName()),
+                    processedPicture);
+        } catch (Exception e) {
+            throw new PictureProcessorException("picture processor error", e);
+        }
         return processedPicture;
-}
+    }
 
     private String constructProcessedPictureFilename(File takenPicture) {
         return Files.getNameWithoutExtension(takenPicture.getPath()) + "-processed." +Files.getFileExtension(takenPicture.getName());

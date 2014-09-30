@@ -51,7 +51,7 @@ public class PhotoResource {
         }
 
         File urlFile = File.createTempFile("image", ".jpg");
-        byte[] data = Base64.getDecoder().decode(order.stringFile);
+        byte[] data = Base64.getDecoder().decode(order.getStringFile());
 
         try (OutputStream stream = new FileOutputStream(urlFile);) {
             stream.write(data);
@@ -76,7 +76,7 @@ public class PhotoResource {
         File urlFile = File.createTempFile("image", ".png");
         urlFile.delete();
 
-        try (InputStream in = new URL(order.stringFile).openStream()) {
+        try (InputStream in = new URL(order.getStringFile()).openStream()) {
             Files.copy(in, urlFile.toPath());
         }
         java.nio.file.Path source = urlFile.toPath();
